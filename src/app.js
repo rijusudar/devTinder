@@ -4,37 +4,35 @@ const app = express();
 
 const port = 3000;
 
-
-app.get('/user', (req, res) => {
-    res.send({
-        firstName: 'Riju',
-        lastName: 'Sudar'
-    })
-});
-
-app.post('/user', (req, res) => {
-    console.log('Creating a new user...');
-    res.send('User created successfully');
-});
-
-app.delete('/user', (req, res) => {
-    console.log('Deleting a user...');
-    res.send('User deleted successfully');
-});
-
-app.put('/user', (req, res) => {
-    console.log('Updating a user...');
-    res.send('User updated successfully');
-});
-
-app.patch('/user', (req, res) => {
-    console.log('Partially updating a user...');
-    res.send('User partially updated successfully');
-});
-
-app.use('/test', (req, res) => {
-    res.send('Hello from the server');
-});
+app.use(
+    '/user', 
+    (req, res, next) => {
+        // Route handler
+        console.log('User route accessed');
+        next();
+        res.send('Response!');
+    },
+    (req, res, next) => {
+        // Route 2 handler
+        console.log('User route 2 accessed');
+        // res.send('Response 2!');
+        next();
+    },
+    (req, res, next) => {
+        // Route 3 handler
+        console.log('User route 3 accessed');
+        // res.send('Response 3!');
+        next();
+    },
+    (req, res, next) => {
+        // Route 4 handler
+        console.log('User route 4 accessed');
+        // res.send('Response 4!');
+        next();
+    },
+);
+// app.use('/routes', [rh1, rh2, rh3])
+// app.use('/routes', [rh1, rh2], rh3, rh4, rh5)
 
 
 app.listen(port, () => {
