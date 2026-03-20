@@ -74,4 +74,57 @@ app.get('/user/:userId/:name/:password', (req, res) => {
     res.send({ firstName: 'John', lastName: 'Doe' });
 });
 
+/****************************************/
+app.use(
+    '/user', 
+    (req, res, next) => {
+        // Route handler
+        console.log('User route accessed');
+        next();
+        res.send('Response!');
+    },
+    (req, res, next) => {
+        // Route 2 handler
+        console.log('User route 2 accessed');
+        // res.send('Response 2!');
+        next();
+    },
+    (req, res, next) => {
+        // Route 3 handler
+        console.log('User route 3 accessed');
+        // res.send('Response 3!');
+        next();
+    },
+    (req, res, next) => {
+        // Route 4 handler
+        console.log('User route 4 accessed');
+        // res.send('Response 4!');
+        next();
+    },
+);
+// app.use('/routes', [rh1, rh2, rh3])
+// app.use('/routes', [rh1, rh2], rh3, rh4, rh5)
+
+
+/*****************************************/
+// GET /users => middleware chain => request handler
+app.use('/', (req, res, next) => { 
+    next();
+    res.send('Response1!');
+ });
+
+app.use(
+    '/user', 
+    (req, res, next) => {
+        next();
+    },
+    (req, res, next) => {
+        next();
+    },
+    (req, res, next) => {
+        next();
+        // res.send('Response2!');
+    },
+);
+
 ```
