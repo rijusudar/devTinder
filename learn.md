@@ -127,4 +127,31 @@ app.use(
     },
 );
 
+/*****************************************/
+// Handle Auth Middleware for only GET request GET, POST
+// app.use('/admin', adminAuth);
+
+// app.get('/admin/getAllData', (req, res) => {
+//     res.send('All Data sent');
+// });
+
+// app.get('/admin/deleteUser', (req, res) => {
+//     res.send('Delete a user');
+// });
+
+// app.get('/user', userAuth, (req, res) => {
+//     res.send('User data sent');
+// });
+app.get('/getUserdata', userAuth, (req, res) => {
+    // Logic of DB call and get user data
+    throw new Error('Database connection failed');
+    res.send('User data sent');
+})
+
+// Global Error Handler : always use it towards the end of the file, after all the routes and middlewares
+app.use('/',(err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!')
+});
+
 ```
